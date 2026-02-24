@@ -1,12 +1,28 @@
 import { test, expect } from '@playwright/test';
 
-test('Midas login text', async ({ page, context }) => {
 
-  await context.tracing.start(
-    { 
-      snapshots: true, 
-      screenshots: true 
-    });
+let context;
+let page;
+test.beforeAll(async({browser})=>{
+
+   context = await browser.newContext();
+   await context.tracing.start({
+    snapshots: true,
+    screenshots: true
+   });
+   page = await context.newPage();
+})
+
+test.afterAll(async () =>{
+  await context.tracing.stop({path: 'test2_trace.zip'})
+})
+
+test('Midas login text', async ({}) => {
+  // await context.tracing.start(
+  //   { 
+  //     snapshots: true, 
+  //     screenshots: true 
+  //   });
   await page.goto('https://gsops-midas-admin-new.pi108.net:9012/login');
   await page.getByRole('textbox', { name: 'Username' }).click();
   await page.getByRole('textbox', { name: 'Username' }).fill('Rutus');
