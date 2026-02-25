@@ -1,14 +1,26 @@
 {
-  "name": "playwright",
+  "name": "playwright_automation_node_js",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Playwright_automation_node_js",
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.2.3"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rutushah/Playwright_automation_node_js.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/rutushah/Playwright_automation_node_js/issues"
+  },
+  "homepage": "https://github.com/rutushah/Playwright_automation_node_js#readme"
 }
