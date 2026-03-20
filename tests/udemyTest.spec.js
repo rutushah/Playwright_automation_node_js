@@ -34,7 +34,35 @@ test.describe('Test suite for testing forms', () => {
         await page.getByText('Echarts').click();
     
     });
+});
 
+//suite for locators syntax rules
+test.describe('Test suite for testing locators syntax rules', () => {
+test('Loctor syntax rules', async({page}) => {
+    //by tag name
+    page.locator('input');
+
+    //by id
+    page.locator('#inputEmail1');
+
+    //by class value
+    page.locator('.shape-rectangle')
+
+    //by attribute name and value
+    page.locator([placeholder="Email"])
+
+    //by class value (full)
+    page.locator('[class="input-full-width size-medium status-basic shape-rectangle nb-transition"]')
+
+    //by combining different selectors
+    page.locator('input[placeholder="Email"][nbinput]');
+
+    // by xpath syntax - it is not recommended to use xpath syntax, but it is possible
+    page.locator('')
+
+    // find element by partial text match
+    page.locator(':text("Using the Grid")')
+});
 
 });
 
