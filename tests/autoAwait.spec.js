@@ -22,3 +22,32 @@ test('Auto Await', async({page}) => {
     await expect(buttonText).toContain('Data loaded with AJAX get request.');
 
 });
+
+test('Alternative waits', async({page}) => {
+
+    const successButton = page.locator('.bg-success');
+
+   
+
+    // await successButton.waitFor({state: 'attached'});
+
+    //wait for element 
+    // await page.waitForSelector('.bg-success');
+
+    //wait for particular response
+    await page.waitForResponse('https://uitestingplayground.com/ajaxdata');
+
+    //wait for network calls to be completed - not recommended
+    await page.waitForLoadState('networkidle');
+
+    //21.65
+    //25 -- 
+
+    //
+
+
+    const buttonText = await successButton.allTextContents();
+
+    await expect(buttonText).toContain('Data loaded with AJAX get request.');
+
+});
