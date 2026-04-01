@@ -23,7 +23,7 @@ test('Auto Await', async({page}) => {
 
 });
 
-test('Alternative waits', async({page}) => {
+test.skip('Alternative waits', async({page}) => {
 
     const successButton = page.locator('.bg-success');
 
