@@ -2,13 +2,6 @@
 import { fa } from '@faker-js/faker';
 import { defineConfig, devices } from '@playwright/test';
 import type { TestOptions } from './test-options';
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -16,41 +9,36 @@ import type { TestOptions } from './test-options';
 export default defineConfig<TestOptions> ({
   timeout: 30000,
   globalTimeout: 100 * 1000,
-  testDir: './tests',
-  /* Run tests in files in parallel */
-  fullyParallel: true,
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  // retries: process.env.CI ? 2 : 0,
-  retries: 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
-  // timeout: 10 * 1000,
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
-  use: {
-    /* Base URL to use in actions like `await page.goto('')`. */
-    baseURL: 'http://localhost:4200/',
-    globalsQAURL: 'https://www.globalsqa.com/demo-site/draganddrop/',
 
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+  retries: 0,
+ 
+  reporter: 'html',
+
+  use: {
+    
+    globalsQAURL: 'https://www.globalsqa.com/demo-site/draganddrop/',
+    baseURL: process.env.DEV === '1' ? 'http://localhost:4200/' 
+            : process.env.STAGING === '1' ? 'https://staging.example.com/'
+            : 'http://localhost:4200/',
+
     trace: 'on-first-retry',
     video : {
-      mode: 'on',
+      mode: 'off',
       size: {width:1920, height:1080}
     },
+        // Viewport used for all pages in the context.
+        viewport: { width: 1920, height: 1080 },
  },
 
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      name: 'dev',
+      use: { 
+        ...devices['Desktop Chrome'],
+        baseURL: 'http://localhost:4200/',
+      },
     },
-
-    
   ],
 
 
